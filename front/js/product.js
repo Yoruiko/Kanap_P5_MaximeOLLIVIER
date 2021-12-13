@@ -52,7 +52,6 @@ const colorSelect = document.getElementById('colors');
   // stockage des valeurs dans le local storage
   // déclaration de la variable ou on va mettre les key et value
   let productInLocalStorage = JSON.parse(localStorage.getItem('product')); //JSON.parse convertit les données JSON du local storage en objet Javascript
-  // verification si il ya deja le produit enregistré dans le local storage ou non
   let addProductInLocalStorage = () => {
     productInLocalStorage.push(selectedProduct);
     localStorage.setItem('product', JSON.stringify(productInLocalStorage));
@@ -60,24 +59,35 @@ const colorSelect = document.getElementById('colors');
   let itemAddedInCart = () => {
     alert('Votre Kanap a été ajouté dans le panier !');
   }
+  //cette fonction verifie si on a selectionné une couleur et si on a mis la bonne quantité 
+  let getQuantValue= () => { 
+    let colorVal= colorSelect.value;
+    if (itemQuantity.value <= 100 &&  !colorVal==''){
+      return true;
+  } else {
+      alert('Veuillez saisir une couleur et une quantité entre 1 et 100'); 
+      return false;}
+  }
+  
   let update = false;
-  if (productInLocalStorage) {
+  if (productInLocalStorage && getQuantValue()) {                   // si j'ai deja un produit dans le local storage et si ma quantité est en dessous de 100 + couleur selectionée
     productInLocalStorage.forEach (function (productCheck, key) {
-     if (productCheck.id == itemId && productCheck.color == colorSelect.value) {
+     if (productCheck.id == itemId &&                 // verification si il n'y a pas le même article dans le local storage en verifiant ID + couleur 
+      productCheck.color == colorSelect.value) {
         productInLocalStorage[key].quantity = parseInt(productCheck.quantity) + parseInt(selectQuantity.value);
         localStorage.setItem('product', JSON.stringify(productInLocalStorage));
         update = true;
         itemAddedInCart();
       }
     });
-    if (!update) { // operateur de NON logique
+    if (!update) { // ! est un operateur de NON logique
       addProductInLocalStorage();
       itemAddedInCart();
     }
   }
-  else {
-    productInLocalStorage = []; //je créer un tableau vide 
-    addProductInLocalStorage(); //je met dans ce tableau le contenu de mon selectedProduct
-    itemAddedInCart();//je créer la clé produit que je convertis en JSON pour le local storage
+  else if (getQuantValue()) { // si je n'ai pas de produit dans le localstorage
+    productInLocalStorage = []; //je créer un tableau vide pour y mettre le produit 
+    addProductInLocalStorage();
+    itemAddedInCart();         
   }
   });

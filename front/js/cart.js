@@ -4,7 +4,7 @@ let productInLocalStorage = JSON.parse(localStorage.getItem('product'));
 console.log(productInLocalStorage);
 //j'affiche les produits sur la page
 const cartAndFormContainer = document.getElementById('cartAndFormContainer');
-
+// si les panier est vide
 if(productInLocalStorage === null || productInLocalStorage == 0) {
   document.querySelector("#cart__items").innerHTML =`
   <div class="cart__empty">
