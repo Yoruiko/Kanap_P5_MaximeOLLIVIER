@@ -104,10 +104,10 @@ function totalArticles() {
       // et renvoie un entier (parseInteger), sur la base décimale de 10
       const newQuantity = parseInt(productInLocalStorage[l].quantity, 10);
   
-      // attribuer la valeur retournée par parseInt à la variable totalItems
+      // attribuer la valeur retournée de parseInt à la variable totalItems
       totalItems += newQuantity;
     }
-      // attribuer à #totalQuantité la valeur de totalItems et l'afficher dans le DOM
+      // attribuer à totalQuantity la valeur de totalItems et l'afficher dans le DOM
       const totalQuantity = document.getElementById('totalQuantity');
       totalQuantity.textContent = totalItems;
   }
@@ -116,12 +116,11 @@ totalArticles();
 function priceAmount() {
   const calculPrice = [];
   for (m = 0; m < productInLocalStorage.length; m++) {
-    // prix de l'article quantité * prix
+    // prix de l'item = quantité * prix
     const cartAmount = productInLocalStorage[m].price * productInLocalStorage[m].quantity;
     calculPrice.push(cartAmount);
 
     // la fonction reduce() permet de garder en mémoire les résultats de l'opération
-    // elle fonctionne comme une boucle, avec un accumulateur et la valeur courante
     const reduce = (previousValue, currentValue) => previousValue + currentValue;
     total = calculPrice.reduce(reduce);
   }
@@ -150,7 +149,7 @@ function postForm() {
     //contrôle prénom
      function formFirstName() {
         const validFirstName = contact.firstName;
-        if (/^[a-zA-Z-]{2,20}$/.test(validFirstName)) {
+        if (/^[a-zA-Z-]{2,20}$/.test(validFirstName)) {  //ce regex autorise uniquement un prénom avec des lettres minuscules ou maj + un " - " entre 2 et 20 caractères
           return true;
         } else {
           let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
@@ -161,7 +160,7 @@ function postForm() {
     // contrôle nom
     function formName() {
       const validName = contact.lastName;
-      if (/^[a-zA-Z\s-]{2,20}$/.test(validName)) {
+      if (/^[a-zA-Z\s-]{2,20}$/.test(validName)) { // meme chose + un espace
         return true;
       } else {
         let lastNameErrorMsg = document.getElementById('lastNameErrorMsg');
@@ -172,7 +171,7 @@ function postForm() {
     // contrôle adresse
     function formAddress() {
       const validAddress = contact.address;
-      if (/^[a-zA-Z0-9\s-]{2,50}$/.test(validAddress)) {
+      if (/^[a-zA-Z0-9\s-]{2,50}$/.test(validAddress)) { // meme chose + chiffres
         return true;
       } else {
         let addressErrorMsg = document.getElementById('addressErrorMsg');
@@ -194,7 +193,7 @@ function postForm() {
     // contrôle email
     function formEmail() {
       const validEmail = contact.email;
-      if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(validEmail)) {
+      if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(validEmail)) { // ici on autorise  "texte/chiffres" " @ " " "texte/chiffres" puis nom de domaine avec un " . " et des lettres entre 2 et 4 caractères
         return true;
       } else {
         let emailErrorMsg = document.getElementById('emailErrorMsg');

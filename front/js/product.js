@@ -1,5 +1,5 @@
 //recuperation de l'ID du produit
-let params = new URLSearchParams(window.location.search);
+let params = new URLSearchParams(window.location.search); //URLSearchParams et après avec get me permet de récuperer dans l'url le produit 
 let itemId= params.get('id');
 
 //creation des constantes des caractéristiques du produit
