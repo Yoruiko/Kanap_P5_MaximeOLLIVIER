@@ -80,7 +80,7 @@ const colorSelect = document.getElementById('colors');
         itemAddedInCart();
       }
     });
-    if (!update) { // ! est un operateur de NON logique
+    if (!update) { // ! est un operateur de NON logique = l'inverse
       addProductInLocalStorage();
       itemAddedInCart();
     }

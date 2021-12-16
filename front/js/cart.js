@@ -200,11 +200,17 @@ function postForm() {
         emailErrorMsg.innerText = "Mail invalide";
       }
     };
-
-
+// fonction qui empeche l'envoie du formulaire si le panier est vide 
+function cartState() {
+ if (productInLocalStorage === null || productInLocalStorage == 0){
+  return false;
+} else {
+  return true;
+}
+}
 // je vérifie les différentes infos récupéré, que j'envoie dans le localStorage
 function formControl() {
-  if (formFirstName() && formName() && formAddress() && formCity() && formEmail()) {
+  if (formFirstName() && formName() && formAddress() && formCity() && formEmail() && cartState()) {
     localStorage.setItem('contact', JSON.stringify(contact));
     return true;
   } else {
