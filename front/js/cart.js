@@ -238,7 +238,6 @@ formControl()
   fetch("http://localhost:3000/api/products/order", formAndCheckout)
     .then(res => res.json())
     .then(data => {
-      localStorage.setItem('orderId', data.orderId);
         if (formControl()) {
           document.location.href = 'confirmation.html?id='+ data.orderId;
         }
