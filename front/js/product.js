@@ -68,37 +68,16 @@ const colorSelect = document.getElementById('colors');
       alert('Veuillez saisir une couleur et une quantité entre 1 et 100'); 
       return false;}
   }
-  function changeQuantity() {
-    let itemQuantity = document.getElementById('quantity');
-    for (let n = 0; n < itemQuantity.length; n++) {
-        itemQuantity[n].addEventListener('change', (event) => {
-        event.preventDefault();
-        // je vais devoir faire un nouveau tableau avec la nouvelle quantité
-        let itemWithNewQuantity = itemQuantity[n].value;
-        const newLocalStorage = {
-            id: productInLocalStorage[n].id,
-            image: productInLocalStorage[n].image,
-            alt: productInLocalStorage[n].alt,
-            name: productInLocalStorage[n].name,
-            color: productInLocalStorage[n].color,
-            price: productInLocalStorage[n].price,   
-            quantity: itemWithNewQuantity, 
-        };
-        // je remplace le localstorage avec les nouvelles valeurs
-        productInLocalStorage[n] = newLocalStorage;
-        localStorage.setItem('product', JSON.stringify(productInLocalStorage));
-        })
-    }
-}
   let update = false;
   if (productInLocalStorage && getQuantValue()) {                   // si j'ai deja un produit dans le local storage et si ma quantité est en dessous de 100 + couleur selectionée
     productInLocalStorage.forEach (function (productCheck, key) {
      if (productCheck.id == itemId &&                 // verification si il n'y a pas le même article dans le local storage en verifiant ID + couleur 
       productCheck.color == colorSelect.value)
        {
-        changeQuantity();
+        productInLocalStorage[key].quantity = parseInt(itemQuantity.value);
+        localStorage.setItem('product', JSON.stringify(productInLocalStorage));
         update = true;
-        alert('Votre quantité a été mise à jour !');
+        itemAddedInCart();
       }
     });
     if (!update) { // ! est un operateur de NON logique = l'inverse
